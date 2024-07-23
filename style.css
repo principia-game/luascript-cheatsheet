@@ -1,0 +1,114 @@
+@page {
+	size: A4;
+	margin: 0mm;
+}
+
+body {
+	font-family: "Archivo SemiCondensed";
+	margin: 0;
+}
+
+.arg {
+	color: #3192b1;
+}
+.method {
+	font-weight: bold;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 5px;
+}
+ul li {
+	margin: 5px 0;
+	font-size: 10pt;
+}
+
+.watermark{
+	transform: rotate(350deg);
+	font-size: 9em;
+	color: rgba(255, 5, 5, 0.7);
+	position: absolute;
+	font-family: 'Denk One', sans-serif;
+	text-transform: uppercase;
+	padding-left: 0%;
+	margin-top: -40px;
+	word-wrap: normal;
+	display: none;
+}
+
+header {
+	display: flex;
+	justify-content:space-around;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+h1 {
+	align-items: center;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+h2 {
+	margin: 0;
+}
+
+td {
+	padding: 2px;
+	vertical-align: top;
+}
+
+.three-columns {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+
+.refbox {
+	margin-top: 10px;
+	border: 1px solid #75b5fd;
+}
+.refbox h3 {
+	margin: 0;
+	background-color: #75b5fd;
+	padding: 0px 10px 5px;
+	font-family: monospace;
+	font-size: 12.5pt;
+}
+
+.principia {
+	font-family: "Times New Roman";
+	font-weight: normal;
+	text-transform: uppercase;
+	color: white;
+	background-color: black;
+}
+
+img {
+	width: 60px;
+	height: 60px;
+	vertical-align: bottom;
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+	vertical-align: bottom;
+	margin-right: 10px;
+}
+
+.linky {
+	/*text-decoration: underline;*/
+	color:#054b8d;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	/*background-color: #ffffff;*/
+	width: 97.5%; /* ??? */
+	font-size: 10pt;
+	padding: 15px 10px;
+	vertical-align: bottom;
+}
