@@ -19,14 +19,15 @@
 			<li>:<span class="method">read</span>(<span class="arg">socket</span>) &rarr; value</li>
 			<li>:<span class="method">has_plug</span>(<span class="arg">socket</span>) &rarr; bool</li>
 			<li>:<span class="method">write_frequency</span>(<span class="arg">freq</span>, <span class="arg">value</span>)</li>
-			<li>:<span class="method">listen_on_frequency</span>(<span class="arg">freq</span>)</li>
+			<li>:<span class="method">listen_on_frequency</span>(<span class="arg">freq</span>) &ndash; <em>Use before reading!</em></li>
 			<li>:<span class="method">read_frequency</span>(<span class="arg">freq</span>) &rarr; value</li>
 			<li>:<span class="method">get_position</span>() &rarr; x,y</li>
 			<li>:<span class="method">get_resolution</span>() &rarr; w,h</li>
-			<li>:<span class="method">get_ratio</span>() &rarr; ratio</li>
-			<li>:<span class="method">set_sprite_blending</span>(<span class="arg">blend_mode</span>)</li> <!--todo-->
+			<li>:<span class="method">get_ratio</span>() &rarr; screen_ratio</li>
+			<li>:<span class="method">set_sprite_blending</span>(<span class="arg">mode</span>)</li> <!--todo-->
+			<li>:<span class="method">set_sprite_filtering</span>(<span class="arg">mode</span>) &ndash; <em>0: nearest, 1: linear</em></li>
 			<li>:<span class="method">set_sprite_texel</span>(<span class="arg">x</span>, <span class="arg">y</span>, <span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>, <span class="arg">a</span>)</li>
-			<li>:<span class="method">clear_texels</span>(<span class="arg">clear_value</span>)</li>
+			<li>:<span class="method">clear_texels</span>(<span class="arg">[clear_value]</span>)</li>
 			<li>:<span class="method">set_draw_tint</span>(<span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>, <span class="arg">a</span>)</li>
 			<li>:<span class="method">set_draw_z</span>(<span class="arg">z</span>)</li>
 			<li>:<span class="method">set_draw_coordinates</span>(<span class="arg">coord_mode</span>, <span class="arg">id</span>)</li>
@@ -36,7 +37,7 @@
 			<li>:<span class="method">draw_line_3d</span>(<span class="arg">x1</span>, <span class="arg">y1</span>, <span class="arg">z1</span>, <span class="arg">x2</span>, <span class="arg">y2</span>, <span class="arg">z2</span>)</li>
 			<li>:<span class="method">draw_gradient_line_3d</span>(<span class="arg">x1</span>, <span class="arg">y1</span>, <span class="arg">z1</span>, <span class="arg">x2</span>, <span class="arg">y2</span>, <span class="arg">z2</span>, <span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>,<span class="arg">a</span>)</li>
 			<li>:<span class="method">get_sprite_texel</span>(<span class="arg">x</span>, <span class="arg">y</span>) &rarr; r,g,b,a</li>
-			<li>:<span class="method">init_draw</span>(<span class="arg">w</span>, <span class="arg">h</span>)</li>
+			<li>:<span class="method">init_draw</span>(<span class="arg">w</span>, <span class="arg">h</span>) &ndash; <em>max. 1024x1024, must be POT</em></li>
 			<li>:<span class="method">set_static_sprite_texel</span>(<span class="arg">x</span>, <span class="arg">y</span>, <span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>, <span class="arg">a</span>)</li>
 			<li>:<span class="method">clear_static_texels</span>(<span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>, <span class="arg">a</span>)</li>
 			<li>:<span class="method">add_static_sprite</span>(<span class="arg">x</span>, <span class="arg">y</span>, <span class="arg">rot</span>, <span class="arg">w</span>, <span class="arg">h</span>, <span class="arg">from_x</span>, <span class="arg">y</span>, <span class="arg">to_x</span>, <span class="arg">y</span>)</li>
@@ -57,24 +58,34 @@
 			<li>:<span class="method">get_borders</span>() -> n,s,w,e</li>
 			<li>:<span class="method">get_world_point</span>(<span class="arg">gsx</span>, <span class="arg">gsy</span>) -> wx,wy</li>
 			<li>:<span class="method">get_screen_point</span>(<span class="arg">gsx</span>, <span class="arg">gsy</span>) -> sx,sy</li>
-			<li>:<span class="method">set_bg_color</span>(<span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>)</li>
-			<li>:<span class="method">set_ambient_light</span>(<span class="arg">intensity</span>)</li>
-			<li>:<span class="method">set_diffuse_light</span>(<span class="arg">intensity</span>)</li>
+			<li>:<span class="method">set_bg_color</span>(<span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>) &ndash; <em>Only when BG is colorable</em></li>
+			<li>:<span class="method">set_ambient_light</span>(<span class="arg">intensity</span>) &ndash; <em>Broken (2024.07.12)</em></li>
+			<li>:<span class="method">set_diffuse_light</span>(<span class="arg">intensity</span>) &ndash; <em>Broken (2024.07.12)</em></li>
 		</ul>
 	</div>
+
+	<div class="refbox" style="width:300px">
+		<h3 style="font-family:inherit;padding-top: 5px;">About IDs</h3>
+
+		<ul>
+			<li>Principia objects have two IDs. <code>id</code> is unique to the selected object while <code>g_id</code> refers to the particular object type. The API generally uses <code>id</code>.</li>
+			<!--<li>Want to convert an image to a LuaScript sprite? See <span class="linky">principia-web.se/lua-to-image/</span></li>-->
+		</ul>
+	</div>
+
 </div><div>
 	<div class="refbox">
 		<h3><img src="icon-game.svg" class="icon">game</h3>
 
 		<ul>
-			<li>:<span class="method">show_numfeed</span>(<span class="arg">num</span>, <span class="arg">decimals</span>)</li>
-			<li>:<span class="method">finish</span>(<span class="arg">win_state</span>)</li>
+			<li>:<span class="method">show_numfeed</span>(<span class="arg">num</span>, <span class="arg">[decimals]</span>)</li>
+			<li>:<span class="method">finish</span>(<span class="arg">win_state</span>) &ndash; <em>1: win, 0: lose</em></li>
 			<li>:<span class="method">add_store</span>(<span class="arg">score_mod</span>)</li>
 			<li>:<span class="method">set_score</span>(<span class="arg">new_score</span>)</li>
-			<li>:<span class="method">get_score</span>() &rarr; score</li>
+			<li>:<span class="method">get_score</span>() &rarr; <span class="ret">score</span></li>
 			<li>:<span class="method">activate_rc</span>(<span class="arg">rc_entity</span>)</li>
 			<li>:<span class="method">activate_rc_by_id</span>(<span class="arg">rc_id</span>)</li>
-			<li>:<span class="method">message</span>(<span class="arg">message</span>, <span class="arg">duration</span>)</li>
+			<li>:<span class="method">message</span>(<span class="arg">message</span>, <span class="arg">[duration]</span>)</li>
 			<li>:<span class="method">get_cursor</span>(<span class="arg">layer</span>) &rarr; x,y</li>
 			<li>:<span class="method">get_screen_cursor</span>() &rarr; x,y</li>
 			<li>:<span class="method">restart</span>()</li>
@@ -89,7 +100,7 @@
 	<div class="refbox">
 		<h3><img src="icon-cam.svg" class="icon">cam</h3>
 
-		<ul style="padding-right:10px;">
+		<ul style="padding-right:10px">
 			<li>:<span class="method">get_position</span>() &rarr; x,y,z</li>
 			<li>:<span class="method">get_velocity</span>() &rarr; x,y,z</li>
 			<li>:<span class="method">set_position</span>(<span class="arg">x</span>, <span class="arg">y</span>, <span class="arg">z</span>)</li>
@@ -103,13 +114,14 @@
 	<div class="refbox">
 		<h3><img src="icon-creature.svg" class="icon">creature</h3>
 
-		<ul style="padding-right:10px;">
+		<ul>
+			<li><em>(Extension of <span style="">entity</span> for robots)</em></li>
 			<li>:<span class="method">get_hp</span>() &rarr; hp,max_hp</li>
 			<li>:<span class="method">get_armor</span>() &rarr; armor,max_armor</li>
 			<li>:<span class="method">get_aim</span>() &rarr; aim</li>
 			<li>:<span class="method">set_aim</span>(<span class="arg">aim</span>)</li>
 			<li>:<span class="method">stop</span>()</li>
-			<li>:<span class="method">move</span>(<span class="arg">direction</span>)</li>
+			<li>:<span class="method">move</span>(<span class="arg">[direction]</span>)</li>
 			<li>:<span class="method">is_action_active</span> &rarr; bool</li>
 			<li>:<span class="method">action_on</span>()</li>
 			<li>:<span class="method">action_off</span>()</li>
@@ -150,15 +162,14 @@
 			<li>:<span class="method">highlight</span>()</li>
 			<li>:<span class="method">damage</span>(<span class="arg">amount</span>)</li>
 			<li>:<span class="method">is_static</span> &rarr; bool</li>
-			<li>:<span class="method">absorb</span>() &rarr; success</li>
+			<li>:<span class="method">absorb</span>([recursive]) &rarr; success</li>
 			<li>:<span class="method">apply_torque</span>(<span class="arg">torque</span>)</li>
 			<li>:<span class="method">apply_force</span>(<span class="arg">x</span>, <span class="arg">y</span>)</li>
 			<li>:<span class="method">set_velocity</span>(<span class="arg">x</span>, <span class="arg">y</span>)</li>
-			<li>:<span class="method">warp</span>(<span class="arg">x</span>, <span class="arg">y</span>, <span class="arg">layer</span>)</li>
-			<li>:<span class="method">show</span>()</li>
-			<li>:<span class="method">hide</span>()</li>
+			<li>:<span class="method">warp</span>(<span class="arg">x</span>, <span class="arg">y</span>, <span class="arg">[layer]</span>)</li>
+			<li>:<span class="method">show</span>() &ndash; :<span class="method">hide</span>()</li>
 			<li>:<span class="method">is_hidden</span>() &rarr; bool</li>
-			<li>:<span class="method">get_name</span>() &rarr; name</li>
+			<li>:<span class="method">get_name</span>() &rarr; obj_name</li>
 			<li>:<span class="method">is_creature</span>() &rarr; bool</li>
 			<li>:<span class="method">is_robot</span>() &rarr; bool</li>
 			<li>:<span class="method">is_player</span>() &rarr; bool</li>
@@ -166,11 +177,21 @@
 			<li>:<span class="method">get_density</span>() &rarr; value</li>
 			<li>:<span class="method">get_friction</span>() &rarr; value</li>
 			<li>:<span class="method">get_restitution</span>() &rarr; value</li>
-			<li>:<span class="method">set_color</span></li>
+			<li>:<span class="method">set_color</span>(<span class="arg">r</span>, <span class="arg">g</span>, <span class="arg">b</span>)</li>
 			<li>:<span class="method">get_color</span>() &rarr; color</li>
 			<li>:<span class="method">disconnect_all</span>()</li>
 			<li>:<span class="method">set_target_id</span>(<span class="arg">id</span>)</li>
 			<li>:<span class="method">call</span>(<span class="arg">function</span>, <span class="arg">args...</span>) &rarr; retvals...</li>
+		</ul>
+	</div>
+
+	<div class="refbox">
+		<h3>Legend</h3>
+
+		<ul style="padding-right: 20px;">
+			<li><span class="arg">arg</span> &ndash; Required argument</li>
+			<li><span class="arg">[arg]</span> &ndash; Optional argument</li>
+			<li>&rarr; retval &ndash; Return value</li>
 		</ul>
 	</div>
 </div>
@@ -187,3 +208,4 @@
 		For further reading see the page on the Principia Wiki:<div style="height:5px"></div><span class="linky">https://principia-web.se/wiki/LuaScript</span>
 	</div>
 </footer>
+
