@@ -9,7 +9,7 @@ body {
 }
 
 .arg {
-	color: #3192b1;
+	color: #035597;
 }
 .method {
 	font-weight: bold;
@@ -18,17 +18,24 @@ body {
 ul {
 	list-style: none;
 	padding: 0;
-	margin: 0 5px;
+	margin: 0;
+	width: 100%;
 }
 ul li {
-	margin: 5px 0;
+	margin: 0;
 	font-size: 10pt;
+	padding: 3px 5px;
+}
+
+ul li:nth-child(even) {
+	background-color: #eee;
+
 }
 
 .watermark{
 	transform: rotate(350deg);
 	font-size: 9em;
-	color: rgba(255, 5, 5, 0.7);
+	color: rgba(255, 5, 5, 0.2);
 	position: absolute;
 	font-family: 'Denk One', sans-serif;
 	text-transform: uppercase;
@@ -41,8 +48,8 @@ ul li {
 header {
 	display: flex;
 	justify-content:space-around;
-	margin-bottom: 10px;
-	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-top: 10px;
 }
 
 h1 {
@@ -77,14 +84,6 @@ td {
 	font-size: 12.5pt;
 }
 
-.principia {
-	font-family: "Times New Roman";
-	font-weight: normal;
-	text-transform: uppercase;
-	color: white;
-	background-color: black;
-}
-
 img {
 	width: 60px;
 	height: 60px;
@@ -99,16 +98,22 @@ img {
 }
 
 .linky {
-	/*text-decoration: underline;*/
 	color:#054b8d;
 }
 
 footer {
 	position: absolute;
 	bottom: 0;
-	/*background-color: #ffffff;*/
-	width: 97.5%; /* ??? */
+	width: 100%;
+	box-sizing: border-box;
 	font-size: 10pt;
 	padding: 15px 10px;
 	vertical-align: bottom;
+
+	display:flex;
+	justify-content: space-between;
+}
+
+.right {
+	text-align: right;
 }
