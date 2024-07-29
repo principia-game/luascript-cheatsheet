@@ -1,0 +1,23 @@
+
+.arg {
+	color: black !important;
+	text-decoration: underline !important;
+}
+
+ul li:nth-child(even) {
+	background-color: rgba(0,0,0,0) !important;
+}
+
+.refbox {
+	border: 1px solid black !important;
+}
+.refbox h3 {
+	background-color: black !important;
+	color: white !important;
+}
+
+.linky {
+	color: black !important;
+	text-decoration: underline !important;
+
+}
