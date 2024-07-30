@@ -1,7 +1,7 @@
 
 .arg {
 	color: black !important;
-	text-decoration: underline !important;
+	/*text-decoration: underline !important;*/
 }
 
 ul li:nth-child(even) {
@@ -19,5 +19,4 @@ ul li:nth-child(even) {
 .linky {
 	color: black !important;
 	text-decoration: underline !important;
-
 }

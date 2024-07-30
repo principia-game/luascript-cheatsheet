@@ -1,8 +1,10 @@
 #!/bin/bash
 
-weasyprint cheatsheet.html cheatsheet.pdf
+mkdir -p out/
 
-okular cheatsheet.pdf &
+weasyprint cheatsheet.html out/cheatsheet.pdf
+
+okular out/cheatsheet.pdf &
 
 declare -A replacements
 replacements=(
@@ -25,6 +27,6 @@ done
 
 sed -e "$sed_expr" cheatsheet.html > cheatsheet_grey.html
 
-weasyprint cheatsheet_grey.html cheatsheet_grey.pdf -s style_grey.css
+weasyprint cheatsheet_grey.html out/cheatsheet_grey.pdf -s style_grey.css
 
-okular cheatsheet_grey.pdf &
+okular out/cheatsheet_grey.pdf &
