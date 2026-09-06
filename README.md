@@ -9,3 +9,11 @@ The cheatsheet is in A4 format. Two PDFs are available, one colour version and o
 It currently documents the API as it exists in Principia 2024.07.12. Information has been sourced from the API reference on the Principia Wiki as well as the game's source code, it has been checked for correctness but mistakes may still happen. Updates to the sheet can be made if issues with it are discovered, please let me know if you find any.
 
 For more information about LuaScript see the full reference documentation on the [Principia Wiki](https://principia-web.se/wiki/LuaScript).
+
+## Download
+See [Releases](https://github.com/principia-game/luascript-cheatsheet/releases) for PDF downloads for the latest revision.
+
+## Building from source
+The cheatsheet is made with HTML+CSS and rendered with Weasyprint to a PDF file. There are two versions - the canonical colour version and the greyscale version. The greyscale version uses different CSS and images and is regenerated when the `render.sh` script is ran.
+
+The resulting PDFs are output to the `out/` directory and the `render.sh` script will also attempt to preview the PDFs with Okular.
